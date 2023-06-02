@@ -1,1 +1,929 @@
+################################# I Parcial ####################################################
+#Entradas: Numero 
+#Salidas: La suma de los digitos
+#Restricciones: Numero entero
+def suma(num):
+  if num==0:  #caso base
+    return 0
+  else:
+    return num%10+suma(num//10)
+
+#version 1.1
+#La misma pero arregla el problema de si pongo suma(2.1))
+#Entradas: Numero 
+#Salidas: La suma de los digitos
+#Restricciones: Numero entero
+def sumav11(num):
+  if isinstance(num,int):
+    if num==0:   #caso base
+      return 0
+    else:
+      return num%10+sumav11(num//10)
+  else:
+    return -1
+
+#Version 2.0
+#Le hago una def auxiliar, que sea la recursiva, en la normal le damos el valor absoluto, para evitar el problemas de si pongo un negativo en el shell)
+#Entradas: Numero 
+#Salidas: La suma de los digitos
+#Restricciones: Numero entero
+def sumav20(num):
+  if isinstance(num,int):
+    return suma20_aux(abs(num))
+  else:
+      return -1
+
+def sumav20_aux(num):
+  if num==0:
+    return 0
+  else:
+    return num%10+sumav20_aux(num//10)
+
+#Ejercicios recursividad
+#Entradas: Numero y un dígito.
+#Salidas: El numero de el dígito que se encuentran en el numero.
+#Restricciones: Numero entero y un digito.
+def cuente_dig(num,dig):
+    if isinstance(num,int) and isinstance(dig,int):
+        return num_aux(num,dig)
+    else: 
+        return 'ERROR'
+        
+def num_aux(num,dig):
+    if num==0:
+        return 0
+    elif num%10==dig:
+        return 1+num_aux(num//10,dig)
+    else:
+        return num_aux(num//10,dig)
+
+#Entradas: Numero 
+#Salidas: Si hay más de nueve dígitos o no
+#Restricciones: Numero entero 
+def mas_nueve(num):
+    if isinstance(num,int):
+        return nueve_aux(abs(num))>8
+    else:
+        'ERROR'
+def nueve_aux(num):
+    if num==0:
+        return False
+    else:
+        return 1+nueve_aux(num//10)
+
+#Entradas: Numero
+#Salidas: Cuantos pares y cuantos impares hay
+#Restricciones:
+def revise_num(num):
+    if isinstance(num,int):
+        return (revisepar_aux(abs(num)),reviseimpar_aux(abs(num)))
+    else:
+        return 'ERROR'
+def revisepar_aux(num):
+    if num==0:
+        return 0
+    elif num%2==0:
+        return 1+revisepar_aux(num//10)
+    else:
+        return revisepar_aux(num//10)
+def reviseimpar_aux(num):
+    if num==0:
+        return 0
+    elif num%2==1:
+        return 1+reviseimpar_aux(num//10)
+    else:
+        return reviseimpar_aux(num//10)
+
+#Entradas: Numero
+#Salidas: Forme un nuevo numero con los digitos que sean 1
+#Restricciones: Debe ser numero entero
+def forme1(num):
+    if isinstance(num,int):
+        return forme_aux(num,0)
+    else:
+        return 'ERROR'
+def forme_aux(num,exp):
+    if num==0:
+        return 0
+    elif num%10==1:
+        return num%10*10**exp+forme_aux(num//10,exp+1)
+    else:
+        return forme_aux(num//10,exp)
+
+#Entradas: Recibe 2 numeros enteros
+#Salidas: Verifica si la suma de sus digitos es mayor o igual al otro numero
+#Restricciones: Los dos deben ser numeros enteros
+def sumax(num1,num2):
+    if isinstance(num1,int) and isinstance(num2,int):
+        return sumax_aux(abs(num1))>=num2
+    else:
+        return 'ERROR'
+def sumax_aux(num):
+    if num==0:
+        return 0
+    else:
+        return num%10+sumax_aux(num//10)
+    
+#Entradas: 2 numeros
+#Salidas: El primer sumado la cantidad de veces que dice el segundo
+#Restricciones: El primer numero es real y el segundo es entero.
+def multi(num1,num2):
+    if isinstance(num2,int):
+        resultado=multi_aux(abs(num1),num2)
+        return resultado
+    else:
+        return 'ERROR'
+def multi_aux(num1,num2):
+    if num2==0:
+        return 0
+    else:
+        return num1+multi_aux(num1//10,num2)
+    
+
+#Entradas: Numero 
+#Salidas: Retorna una tupla con los digitos de los pares e impare haciendo un nuevo numero
+#Restricciones: El numero debe ser entero
+def forme_parimpar(num):
+    if isinstance(num,int):
+        return (par_aux(num,0),impar_aux(num,0))
+    else:
+            return 'ERROR'
+def par_aux(num,exp):
+    if num==0:
+        return 0
+    elif num%2==0:
+        return num%10*10**exp+par_aux(num//10,exp+1)
+    else:
+        return par_aux(num//10,exp)
+def impar_aux(num,exp):
+    if num==0:
+        return 0
+    elif num%2==1:
+        return num%10*10**exp+impar_aux(num//10,exp+1)
+    else:
+        return impar_aux(num//10,exp)
+
+#Entradas: Numero 
+#Salidas: El mismo numero pero invertido
+#Restricciones: Numero entero
+def invierta(num):
+    if isinstance(num,int):
+        return invierta_aux(abs(num),largo(abs(num))-1)
+    else:
+        return 'ERROR'
+def invierta_aux(num,exp):
+    if num==0:
+        return 0
+    else:
+        return num%10*10**exp+invierta_aux(num//10,exp-1) 
+def largo(num):
+  if num==0:
+    return 0
+  else:
+    return 1+largo(num//10)
+
+ #Problema de los contadores exacto e inexacto
+#Entradas: Numero y un digito.
+#Salidas: 2 contadores, uno de los divisibles por el dig exactos y el otro inexactos.
+#Restricciones: Numero entero para el num y para el dig.
+def cuente(dig,num):
+   if isinstance(dig,int) and isinstance(num,int):
+      return divExact(dig,abs(num)), divInexact(dig,abs(num))
+   else:
+      return "ERROR"
+def divExact(dig,num):
+   if num==0:
+      return 0
+   elif (num%10)==0:
+      return divExact(dig,num//10)
+   elif (num%10)%dig==0:
+      return 1+divExact(dig,num//10)
+   else:
+      return divExact(dig,num//10)  
+def divInexact(dig,num):
+   if num==0:
+      return 0
+   elif (num%10)==0:
+      return 1+divInexact(dig,num//10)
+   elif (num%10)%dig!=0:
+      return 1+divInexact(dig,num//10)
+   else:
+      return divInexact(dig,num//10)
+
+#Problema de las parejas de numeros
+#Entradas:
+#Salidas:
+#Restricciones:
+def parejas(num):
+   if isinstance(num,int):
+      return pare_aux(abs(num))
+   else:
+      return "ERROR"
+def pare_aux(num):
+   if num==0:
+      return 0
+   elif num%10==(num//10)%10:
+      return 1+pare_aux((num//10)//10)
+   else:
+      return pare_aux(num//10)
+
+#Problema de pegarle el num2 al num1 al la izquierda
+#Entradas:
+#Salidas:
+#Restricciones:
+def num_append(n1,n2):
+   if isinstance(n1,int) and isinstance(n2,int):
+      return app_aux(n1,n2)
+   else:
+      "ERROR"
+def app_aux(n1,n2):
+   if n1==0:
+      return 0
+   elif n1%10==0:
+      return n1*10
+   else:
+      return (n1*10**largo_n2(n2))+n2
+
+def largo_n2(n2):
+   if n2==0:
+      return 0
+   else:
+      return 1+largo_n2(n2//10)
+   
+#Problema de la suma del numero 1 a cada digito del numero 2
+#Entradas:
+#Salidas:
+#Restricciones:
+def sumardd(num1,num2):
+   if isinstance(num1,int) and isinstance(num2,int):
+      return sum_aux(num1,num2,0)
+   else:
+      return "ERROR"
+def sum_aux(num1,num2,exp):
+   if num2==0:
+      return 0
+   else:
+      return suma(num1,num2)*10**exp+sum_aux(num1,num2//10,exp+1)
+def suma(num1,num2):
+   if num2==0:
+      return 0
+   elif (num2%10)+num1>=10:
+      return (((num2%10)+num1)//10)%10
+   else:
+      return (num2%10)+num1
+
+#Problema de invertir una lista
+#Entradas:
+#Salidas:
+#Restricciones:
+def invierta(lista):
+   if isinstance(lista,list):
+      return invierta_aux(lista)
+   else:
+      return "ERROR"
+def invierta_aux(lista):
+   if lista==[]:
+      return []
+   else:
+      return invierta_aux(lista[1:])+[lista[0]]
+#Con índice
+def invierta_i(lista):
+   if isinstance(lista,list):
+      return inviertai_aux(lista,0,len(lista))
+   else:
+      return "ERROR"
+def inviertai_aux(lista,i,n):
+   if i==n:
+      return []
+   else:
+      return inviertai_aux(lista,i+1,n)+[lista[i]]
+
+#Problema de eliminar 3 apariciones del elemento puesto
+#Entradas:
+#Salidas:
+#Restricciones:
+def eliminar3(lista,ele):
+   if isinstance(lista,list) and isinstance(ele,int):
+      return eliminar3_aux(lista,ele)
+   else:
+      return "ERROR"
+def eliminar3_aux(lista,ele):
+   if lista==[]:
+      return []
+   elif conta3(lista,ele) <=3:
+      if lista[0]==ele:
+         return eliminar3_aux(lista[1:],ele)
+      else:
+         return [lista[0]]+eliminar3_aux(lista[1:],ele)
+   else:
+      return [lista[0]]+eliminar3_aux(lista[1:],ele)
+def conta3(lista,ele):
+   if lista==[]:
+      return 0
+   elif lista[0]==ele:
+      return 1+conta3(lista[1:],ele)
+   else:
+      return conta3(lista[1:],ele)
+
+#Problema de la resta a cada uno para digito
+#Entradas:
+#Salidas:
+#Restricciones:
+def reste1(num):
+   if isinstance(num,int):
+      return reste1_aux(num,0)
+   else:
+      return "ERROR"
+def reste1_aux(num,exp):
+   if num==0:
+      return 0
+   elif num%10==0:
+      return reste1_aux(num//10,exp+1)
+   else:
+      return ((num%10)-1)*10**exp+reste1_aux(num//10,exp+1)
+
+#Problema de verificar si es palíndromo o no
+#Entradas:
+#Salidas:
+#Restricciones:
+def palindromo(num):
+   if isinstance(num,int):
+      return pali_aux(num,0)==invert_pali(num,largo_pali(num)-1)
+   else:
+      "ERROR"
+def pali_aux(num,exp):
+   if num==0:
+      return 0
+   else:
+      return num%10*10**exp+pali_aux(num//10,exp+1)
+def invert_pali(num,ep):
+   if num==0:
+      return 0
+   else:
+      return num%10*10**ep+invert_pali(num//10,ep-1)
+def largo_pali(num):
+   if num==0:
+      return 0
+   else:
+      return 1+largo_pali(num//10)
+
+#Problema de los pares significativos
+#Entradas:
+#Salidas:
+#Restricciones:                 >        <
+def par2(num):
+   if isinstance(num,int):
+      return par2_xua(num)
+   else:
+      return "ERROR"
+def cont_par(num):
+   if num==0:
+      return 0
+   elif num%2==0:
+      return 1+cont_par(num//10)
+   else:
+      return cont_par(num//10)
+def pares2_aux(num,exp):
+   if num==0:
+      return 0
+   elif (num%10)%2==0:
+      return num%10*10**exp+pares2_aux(num//10,exp+1)
+   else:
+      return pares2_aux(num//10,exp)
+def par2_xua(num):
+   if num==0:
+      return 0
+   elif cont_par(num)==2:
+      return pares2_aux(num,0)
+   elif cont_par(num)>2:
+      return pares2_aux(num//10,0)
+   else:
+      return "No hay dos pares"
+
+#Problema de eliminar la primera aparicion del elemento en la lista
+#Entradas:
+#Salidas:     
+#Restricciones
+def eliminar(lista,ele):
+   if isinstance(lista,list) and isinstance(ele,int):
+      return elim_aux(lista,ele)
+   else:
+      return "ERROR"
+def cont_lista(lista,ele):
+   if lista==[]:
+      return 0
+   elif lista[0]==ele:
+      return 1+cont_lista(lista[1:],ele)
+   else:
+      return cont_lista(lista[1:],ele)
+def elim_aux(lista,ele):
+   if lista==[]:
+      return []
+   elif cont_lista(lista,ele)<=1:
+      if lista[0]==ele:
+         return elim_aux(lista[1:],ele)
+      else:
+         return [lista[0]]+elim_aux(lista[1:],ele)
+   else:
+      return [lista[0]]+elim_aux(lista[1:],ele)
+
+
+
+################################# II Parcial ##############################################################
+#Entradas: Dos vectores
+#Salidas: La suma de de todos los productos en la misma columna
+#Restricciones: Deben ser del mismo tamaño
+def prod_vector(v,w):
+  if len(v)==len(w):
+    return prod_vec_aux(v,w,0,0)
+  else:
+    return "ERROR:Vectores no del mismo tamaño"
+def prod_vec_aux(v,w,i,vecR):
+  if i==len(v):
+    return vecR
+  else:
+    return prod_vec_aux(v,w,i+1,vecR+v[i]*w[i])
+
+
+#2
+#Entradas: Un vector
+#Salidas: El vector invertido
+#Restricciones: El vector debe ser mayor que dos
+def vector_invert(v):
+  if len(v)>2:
+    return invert_aux(v,0,[])
+  else:
+    return "ERROR"
+def invert_aux(v,i,vecR):
+  if i==len(v):
+    return vecR
+  else:
+    return invert_aux(v,i+1,[v[i]]+vecR)
+
+
+#Entradas: Dos vectores
+#Salidas: Detectar si todos los elementos del vector 1 están en el vector 2
+#Restricciones: Debe ser un vector de por lo menos dos elementos
+def inn(vector1,vector2):
+  return inn_aux(vector1,vector2,0,0)
+
+def inn_aux(vector1,vector2,i,x,):
+  if i==len(vector1):
+    return True
+  elif x==len(vector2):
+     return False
+  elif vector1[i]==vector2[x]:
+    return inn_aux(vector1,vector2,i+1,x+1)
+  else:
+    return inn_aux(vector1,vector2,i,x+1)
+
+#Entradas: Una matriz cuadrada
+#Salidas: La muestra en la consola
+#Restricciones: Debe ser una matriz cuadrada
+def muestreM(matriz):
+   if len(matriz) == 0:
+      return
+   print('[', end=' ')
+   muestreM_aux(matriz[0])
+   print(']', end=' ')
+   print()
+   muestreM(matriz[1:])
+
+def muestreM_aux(fila):
+   if len(fila) == 0:
+      return
+   print(fila[0], end=' ')
+   muestreM_aux(fila[1:])
+
+#Entradas: Una matriz
+#Salidas: Un vector con la diagonal de la matriz
+#Restricciones: debe ser una matriz cuadrada
+def diagonal(matriz):
+   if len(matriz)==len(matriz[0]):
+      return diagonal_aux(matriz,0)
+   else:
+      return "ERROR"
+def diagonal_aux(matriz, i):
+    if i == len(matriz):
+        return []
+    return [matriz[i][i]] + diagonal_aux(matriz, i+1)
+
+#Entradas: Una matriz cuadrada
+#Salidas: Un vector con los maximos de cada fila
+#Restricciones: Debe ser una matriz cuadrada
+def maximos(matriz):
+ if len(matriz) == 0 or len(matriz[0]) == 0:
+     return []
+ else:
+     return [maximos_aux(matriz[0], matriz[0][0])] + maximos(matriz[1:])
+
+def maximos_aux(fila, maximo):
+    if len(fila) == 0:
+        return maximo
+    else:
+        if fila[0] > maximo:
+            maximo = fila[0]
+        return maximos_aux(fila[1:], maximo)
+
+#Entradas: Un numero entero
+#Salidas: Una lista desde 2 hasta el numero dado
+#Restricciones: Debe ser un numero entero
+def serie(num):
+   if isinstance(num,int):
+      return serie_aux(num,2,0,[])
+   else:
+      return "ERROR"
+def serie_aux(num,result,x,lista):
+   if num<result:
+      return lista
+   elif x==0:
+      return serie_aux(num,result+3,x+1,lista+[result])
+   else:
+      return serie_aux(num,result+2,x-1,lista+[result])
+
+#Entradas: Un numero entero
+#Salidas: Cuenta las veces que aparecen digitos parejas
+#Restricciones: Debe ser un numero entero
+def parejas(num):
+   if isinstance(num,int):
+      return parejas_aux(num,0)
+   else:
+      return "ERROR"
+def parejas_aux(num,result):
+   if num==0:
+      return result
+   elif num%10==(num//10)%10:
+      return parejas_aux((num//10)//10,result+1)
+   else:
+      return parejas_aux(num//10,result)
+
+   
+#Entradas: Una lista
+#Salidas: Se saca el promedio de una competencia deportiva
+#Restricciones: Debe ser una lista válida de 10 numeros
+def calificacion(lista):
+   if isinstance(lista,list)and len(lista)>9 and len(lista)<11:
+      return calificacion_aux(lista,mayor(lista,0),menor(lista,1000),0)//8
+   else:
+      return "ERROR"
+   
+def mayor(lista,mayo):
+   if lista==[]:
+      return mayo
+   elif lista[0]>mayo:
+      return mayor(lista[1:],mayo=lista[0])
+   else:
+      return mayor(lista[1:],mayo)
+   
+def menor(lista,meno):
+   if lista==[]:
+      return meno
+   elif lista[0]<meno:
+      return menor(lista[1:],meno=lista[0])
+   else:
+      return menor(lista[1:],meno)
+   
+def calificacion_aux(lista,mayor,menor,result):
+   if lista==[]:
+      return result
+   elif lista[0]== mayor:
+      return calificacion_aux(lista[1:],mayor,menor,result)
+   elif lista[0]== menor:
+      return calificacion_aux(lista[1:],mayor,menor,result)
+   else:
+      return calificacion_aux(lista[1:],mayor,menor,result+lista[0])
+
+
+#Entradas: Una lista
+#Salidas: La lista pero invertida
+#Restricciones: Debe ser una lista valida
+def invertir(lista):
+   if isinstance(lista,list):
+      return invert_aux(lista,[])
+   else:
+      return "ERROR"
+def invert_aux(lista,result):
+   if lista==[]:
+      return result
+   else:
+      return invert_aux(lista[1:],[lista[0]]+result)
+
+
+#Entradas: Una lista y un digito
+#Salidas: Todas las apariciones del digto en la lista excepto la última
+#Restricciones: Debe ser una lista válida y un digito entero
+def elimine(lista,dig):
+   if isinstance(lista,list) and isinstance(dig,int):
+      return elimine_aux(lista,dig,[])
+   else:
+      return "ERROR"
+   
+def contar(lista,dig,x):
+   if lista==[]:
+      return x
+   elif lista[0]==dig:
+      return contar(lista[1:],dig,x+1)
+   else:
+      return contar(lista[1:],dig,x)
+                 
+def elimine_aux(lista,dig,result):
+   if lista==[]:
+      return result
+   elif contar(lista,dig,0)>1:
+      if lista[0]==dig:
+         return elimine_aux(lista[1:],dig,result)
+      else:
+         return elimine_aux(lista[1:],dig,result+[lista[0]])
+   else:
+      return elimine_aux(lista[1:],dig,result+[lista[0]])
+
+
+#Entradas: Una lista y un elemento
+#Salidas: Elimina las apariciones del elemento en la lista
+#Restricciones: Debe ser una lista valida
+def eliminar_todos(lista,ele):
+   if isinstance(lista,list):
+      return elim_todos_aux(lista,ele,[])
+   else:
+      return "ERROR"
+def elim_todos_aux(lista,ele,result):
+   if lista==[]:
+      return result
+   elif lista[0]==ele:
+      return elim_todos_aux(lista[1:],ele,result)
+   else:
+      return elim_todos_aux(lista[1:],ele,result+[lista[0]])
+
+
+#Entradas: Un numero y un error
+#Salidas: Una aproximacion de una raiz quinta que de un error menor al error ingresado
+#Restricciones: Debe ser un numero entero, y el error debe ser con decimales
+
+def raiz5(y, error):
+    if isinstance(y, int) and isinstance(error, float) and error > 0 and error < 1:
+        return raiz5_aux(y,1, error)
+    else:
+        return 'Error'
+
+def raiz5_aux(Y,Xn, error):
+   def aux5(Xn, error):
+      Xn1 = (1/4) * (3 * Xn + (Y / Xn**4))
+      error2 = abs(Xn1 - Xn)
+      if error2 < error:
+         return Xn1
+      else:
+         return aux5(Xn1, error)
+   return aux5(1, error)
+
+                        
+#Entradas: Un numero
+#Salidas: Una aproximacion de una raiz cubica con al menos 5 digitos de precisión
+#Restricciones: El numero debe ser entero
+def raiz3(y):
+    if isinstance(y, int):
+        return raiz3_aux(y, 0.000001)
+    else:
+        return 'Error'
+def raiz3_aux(Y, err):
+
+    def aux3(Xn, err):
+        Xn1 = (1/3) * (2 * Xn + Y / Xn**2)
+        error = abs(Xn1 - Xn)
+        if error < err:
+            return Xn1
+        else:
+            return aux3(Xn1, err)
+    return aux3(1, err)
+
+#Fibonacci
+def fibonacci(num):
+  if isinstance(num,int) and num>0:
+    return fib_aux(num)
+  else: return 'ERROR'
+def fib_aux(num):
+  if num==0 or num==1:
+    return num
+  else:
+    fib_aux(num-1)+fib_aux(num-2)
+
+######################### Lista Simple ###########################
+"""
+Clase Nodo-Node:
+Atributos:
++next: referencia
++valor: int
+Método:
+*get_valor(): Consigue el valor del nodo
+"""
+class Nodo:
+   def __init__(self, valor):
+      self.next = None
+      self.valor = valor
+   def get_valor(self):
+      return self.valor
+      
+      
+########################################################################################      
+"""
+Clase Lista-List:
+Atributos:
++head: referencia
++size: int
+Métodos:
+*appe(valor): inserta -un nodo al final de una lista
+Entradas: Valor a insertar
+Salidas: Lista actualizada con el nodo al final 
+Restricciones: Debe ser un número entero
+*printL(): muestra el contenido de la lista
+*suma(): obtiene la suma de los elementos de la lista en forma iterativa
+*suma_r(): obtiene la suma de los elementos de la lista en forma recursiva
+*cuente_i(valor), que obtiene la cantidad de elementos en la lista iguales al
+valor dado.
+*cuente_r(valor), que obtiene la cantidad de elementos en la lista iguales al
+valor dado en forma recursiva
+*inn(ele): indica si el elemento existe en la lista
+"""     
+class Lista:
+   def __init__(self):
+      self.head = None
+      self.size = 0
+      
+   def appe(self, valor):
+      if isinstance(valor, int):
+         self.size += 1
+         if self.head == None : 
+            self.head = Nodo(valor)
+         else: 
+            tmp = self.head
+            while tmp.next != None :
+               tmp = tmp.next
+            tmp.next = Nodo(valor)
+      else:
+         print("Error")
+   def printL(self):
+      node=self.head
+      print("[",end="")
+      while node!=None:
+         if node.next==None:
+            print(node.get_valor(),end="]")
+         else:
+            print(node.get_valor(),end=",")
+         node=node.next
+   def suma(self):
+      node=self.head
+      suma=0
+      while node!=None:
+         suma+=node.get_valor()
+         node=node.next
+      return suma
+   def suma_r(self):
+      node=self.head
+      return self.sumar_r_aux(node,0)
+   def sumar_r_aux(self,node,result):
+      if node==None:
+         return result
+      else:
+         return self.sumar_r_aux(node.next,result+node.get_valor())
+   def cuente_i(self,valor):
+      node=self.head
+      count=0
+      while node!=None:
+         if node.get_valor()==valor:
+            count+=1
+         node=node.next
+      return count
+   def cuente_r(self,valor):
+      node=self.head
+      return self.cuenteR_aux(node,valor,0)
+   def cuenteR_aux(self,node,valor,result):
+      if node==None:
+         return result
+      elif node.get_valor()==valor:
+         return self.cuenteR_aux(node.next,valor,result+1)
+      else:
+         return self.cuenteR_aux(node.next,valor,result)
+   def inn(self,ele):
+      node=self.head
+      while node!=None:
+         if node.get_valor()==ele:
+            return True
+         node=node.next
+      return False
+
+######################### Herencia ###########################
+"""
+Clase Vehiculo(padre)
+Atributos:
+/Placa: String
+/Marca: String
+/Ruedas: String
+/Kilometraje: Int
+/Combustible: String
+/Consumo: String
+Métodos:
++mostrar(): Muestra las específicaciones del vehículo
++hacerViaje(kms): Actualiza el kilometraje
++get_kilometraje(): Obtener el dato del kilometraje
+"""
+class Vehiculo:
+   def __init__(self,placa,marca,ruedas,kilometraje,combustible,consumo):
+      self.placa=placa
+      self.marca=marca
+      self.ruedas=ruedas
+      self.kilometraje=kilometraje
+      self.combustible=combustible
+      self.consumo=consumo
+   def mostrar(self):
+      print("Placa:",self.placa)
+      print("Marca:",self.marca)
+      print("Ruedas:",self.ruedas)
+      print("Kilometraje:",self.kilometraje,end="kms\n")
+      print("Conmbustible:",self.combustible)
+      print("Consumo:",self.consumo)
+   def hacerViaje(self,kms):
+      self.kilometraje=kms+self.kilometraje
+   def get_kilometraje(self):
+      return self.kilometraje
+"""
+Clase hija Auto(hija)
+Atributos:
+\atributos heredados de Vehiculo
+\Modelo: String
+\Año: String
+Métodos:
+-mostrar(): Mostrar las especificaciones del auto
+"""      
+class Auto(Vehiculo):
+   def __init__(self,placa,marca,ruedas,kilometraje,combustible,consumo,modelo,año):
+      Vehiculo.__init__(self,placa,marca,ruedas,kilometraje,combustible,consumo)
+      self.modelo=modelo
+      self.año=año
+   def mostrar(self):
+      Vehiculo.mostrar(self)
+      print("Modelo:",self.modelo)
+      print("Año:",self.año)
+      print("--------------------")
+"""
+Clase Moto(hija)
+Atributos:
+*atributos heredados de Vehiculo
+*estilo: String
+*cilindraje: String
+Métodos:
++mostrar(): Muestra las especificaciones de la moto
+"""
+class Moto(Vehiculo):
+   def __init__(self,placa,marca,ruedas,kilometraje,combustible,consumo,estilo,cilindraje):
+      Vehiculo.__init__(self,placa,marca,ruedas,kilometraje,combustible,consumo)
+      self.estilo=estilo
+      self.cilindraje=cilindraje
+   def mostrar(self):
+      Vehiculo.mostrar(self)
+      print("Estilo:",self.estilo)
+      print("Cilindraje:",self.cilindraje,end="cm3\n")
+      print("--------------------")
+
+#Lista de instancias con 3 vehículos de cada tipo
+vehiculos=[Auto("CMY190","Suzuki","235/65R17",10000,"Súper","6,4L/100km","Vitara",2023),
+          Moto("657832","Yamaha","120/70ZR17M/C",5000,"Gasolina extra","5L/100km","MT-09/SP",890),
+          Auto("YMS608","Toyota","235/55R19",15000,"Diesel","6,7L/100km","Lexus",2023),
+          Moto("238756","Kawasaki","190/50ZR17M/C",7000,"Gasolina extra","4L/100km","Z1000",1043),
+          Auto("WTF666","Audi","OE235/65R17",20000,"Diesel","6,4L/100km","Q5",2023),
+          Moto("343213","Honda","90/90-19",12349,"sin plomo 95","6L/100km","XR150L",149)]
+
+#Función externa para mostrar solamente los vehiculos que tengan más de 10000kms
+def revise(lista):
+   for vehi in lista:
+      if vehi.get_kilometraje()>10000:
+         vehi.mostrar()
+print(revise(vehiculos))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
